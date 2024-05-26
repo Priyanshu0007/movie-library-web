@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useEffect, useState } from "react"
 import Navbar from "../components/Navbar"
 import MovieCard from "../components/MovieCard";
@@ -45,14 +46,7 @@ const Home = () => {
 
     firebase.putData(`${firebase.user.uid}/private/${data[0]}`,{id:null});
   }
-  const [copySuccess, setCopySuccess] = useState(false)
-  async function copyToClip(data) {
-    await navigator.clipboard.writeText(`${location.href}public/${firebase.user.uid}/${data[0]}`);
-    setCopySuccess(true);
-    setTimeout(()=>{
-      setCopySuccess(false);
-    },5000)
-}
+  
 
   return (
     <div className="w-[90%] md:w-[80%] flex flex-col ">
@@ -74,12 +68,14 @@ const Home = () => {
                 <button onClick={createPublicList} className="px-2 py-1 rounded-2xl bg-green-400">Create List</button>
               </div>
               {firebase.publicData ? Object.entries(firebase.publicData).map((data,key)=>{
+                  async function copyToClip(data) {
+                    await navigator.clipboard.writeText(`${location.href}public/${firebase.user.uid}/${data[0]}`);
+                    }
                 return(<div key={key} className="p-2 my-2 bg-green-300 rounded-2xl">
                         <div className="flex items-center justify-between">
                           <p className="text-xl text-green-900 font-semibold">Public List - {key+1}</p>
                           <div className="flex text-xl gap-2">
-                            {copySuccess && <p className="!text-sm">Copied</p>}
-                            <IoIosLink onClick={()=>copyToClip(data)}/>
+                            <IoIosLink  onClick={()=>copyToClip(data)}/>
                             <MdDelete onClick={()=>deletePublicList(data)}/>
                           </div>
                         </div>

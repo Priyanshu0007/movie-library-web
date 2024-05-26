@@ -1,13 +1,10 @@
 import { useParams } from 'react-router'
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react'
-import { IoIosRemoveCircle } from "react-icons/io";
-
-import { MdDelete } from 'react-icons/md';
 import { getDatabase, ref, onValue } from "firebase/database";
 
 
-const List= ({val,id})=>{
+const List= ({val})=>{
 
     const [data,setData]=useState(null);
 
