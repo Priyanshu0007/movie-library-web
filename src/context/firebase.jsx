@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useState, useEffect} from "react"
 import { initializeApp } from "firebase/app";
-import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,onAuthStateChanged} from "firebase/auth"
+import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,onAuthStateChanged,signOut} from "firebase/auth"
 import { getDatabase,set,ref,onValue } from "firebase/database";
+import { toast } from "sonner";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBzVKF0JcPlPv2ktD0M5CyBZXImOmYK3A0",
@@ -32,21 +33,22 @@ export const FirebaseProvider=(props)=>{
         })
     },[])
     const signupUserWithEmailAndPassword=(email,password)=>{
-        createUserWithEmailAndPassword(firebaseAuth,email,password).then((val)=>console.log(val)).catch((err)=>console.log(err))
+        createUserWithEmailAndPassword(firebaseAuth,email,password).then(()=>{toast.success("Signed up succesfully",{duration:3000})}).catch((err)=>toast.error(`Error : ${err.message.slice(22,-2)}`,{duration:3000}))
     }
     const signinUserWithEmailAndPassword=(email,password)=>{
-        signInWithEmailAndPassword(firebaseAuth,email,password).then((val)=>console.log(val)).catch((err)=>console.log(err))
+        signInWithEmailAndPassword(firebaseAuth,email,password).then(()=>{toast.success("Signed up succesfully",{duration:3000})}).catch((err)=>toast.error(`Error : ${err.message.slice(22,-2)}`,{duration:3000}))
       }
     const putData=(key,data)=>set(ref(database,key),data)
-
-    
       useEffect(()=>{
         onValue(ref(database,`${user?.uid}/private`),(snapshot)=>setPrivateData(snapshot.val()))
         onValue(ref(database,`${user?.uid}/public`),(snapshot)=>setPublicData(snapshot.val()))
       },[user])
+    const signOutUser=()=>{
+        signOut(firebaseAuth)
+    }
 
     return(
-        <FirebaseContext.Provider value={{signupUserWithEmailAndPassword,signinUserWithEmailAndPassword,user,putData,isLoaded,privateData,publicData}}>
+        <FirebaseContext.Provider value={{signupUserWithEmailAndPassword,signinUserWithEmailAndPassword,user,putData,isLoaded,privateData,publicData,signOutUser}}>
             {props.children}
         </FirebaseContext.Provider>
     )

@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { IoIosRemoveCircle } from "react-icons/io";
 import { useFirebase } from '../context/firebase';
+import { toast } from 'sonner';
 
 
 const List= ({val,id})=>{
@@ -18,11 +19,12 @@ const List= ({val,id})=>{
         firebase.putData(`${firebase.user.uid}/public/${id}/${val}`,{
             id:null
         });
+        toast.success('Removed from list',{duration:3000})
     }
-    if(data){return(<div className='flex gap-2 items-center'>
+    if(data){return(<div className='flex gap-2 items-center justify-between'>
             <div className='w-[30%]'><img className='h-[80px] w-[80px] rounded-2xl' src={data.Poster} alt='img'/></div>
             <div className='w-[50%] flex items-center text-wrap'><p>{data.Title}</p></div>
-            <div className='w-[20%] text-2xl' onClick={deleteData}><IoIosRemoveCircle/></div>
+            <div className=' text-2xl p-1 rounded-full transition ease-in-out duration-300 hover:cursor-pointer' onClick={deleteData}><IoIosRemoveCircle/></div>
             </div>)}
 
 }

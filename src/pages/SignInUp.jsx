@@ -9,7 +9,7 @@ const SignInUp = () => {
   const [upPass,setUpPass]=useState("");
   const firebase = useFirebase()
   const nagivate=useNavigate()
-
+  const [signUp,setSignUp]=useState(false);
   useEffect(()=>{
     if(!firebase.user?.email){nagivate('/sign')}
     else{nagivate('/')}
@@ -20,7 +20,7 @@ const SignInUp = () => {
         <div className="text-9xl flex justify-center">
           <FaUserCircle />
         </div>
-        <div>
+        {signUp && <div>
             <p className="text-2xl px-8">Sign Up</p>
             <div className="space-y-6 px-8 py-4">
               <div>
@@ -41,13 +41,8 @@ const SignInUp = () => {
                 <button onClick={()=>firebase.signupUserWithEmailAndPassword(upEmail,upPass)} type="submit" className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Sign up</button>
               </div>
             </div>
-        </div>
-        <div className="flex mx-6 items-center gap-2">
-          <div className=" border-b-2 w-full border-gray-500"></div>
-          <div className="text-gray-500 font-semibold">OR</div>
-          <div className=" border-b-2 w-full border-gray-500"></div>
-        </div>
-        <div>
+        </div>}
+        {!signUp && <div>
           <p className="text-2xl px-8">Sign In</p>
             <div className="space-y-6 px-8 py-4">
               <div>
@@ -68,7 +63,14 @@ const SignInUp = () => {
                 <button onClick={()=>firebase.signinUserWithEmailAndPassword(inEmail,inPass)} type="submit" className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Sign in</button>
               </div>
             </div>
+        </div>}
+        <div className="flex mx-6 items-center gap-2">
+          <div className=" border-b-2 w-full border-gray-500"></div>
+          <div className="text-gray-500 font-semibold">OR</div>
+          <div className=" border-b-2 w-full border-gray-500"></div>
         </div>
+        {!signUp && <button onClick={()=>setSignUp(true)} className="flex w-[80%] md:w-[40%] mx-auto my-4 justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Create new account</button>}
+        {signUp && <button onClick={()=>setSignUp(false)} className="flex w-[80%] md:w-[40%] mx-auto my-4 justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Already have account</button>}
       </div>: <p className="text-5xl mx-auto">Loading...</p>}
     </div>
   )

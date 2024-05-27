@@ -13,10 +13,14 @@ const List= ({val})=>{
       },[val])
 
 
-    if(data){return(<div className='flex gap-2 items-center'>
-            <div className='w-[30%]'><img className='h-[250px] w-[200px] rounded-2xl' src={data.Poster} alt='img'/></div>
-            <div className='w-[50%] flex items-center text-wrap'>
-              <p>{data.Title}</p>
+    if(data){return(<div className='flex flex-col md:flex-row gap-2 items-center'>
+            <div className='w-[100%] md:w-[30%]'><img className='h-[250px] mx-auto w-[200px] rounded-2xl' src={data.Poster} alt='img'/></div>
+            <div className='w-[100%] md:w-[50%] flex flex-col items-start text-wrap gap-3'>
+              <p className='text-xl font-semibold'>{data.Title}</p>
+                    <p>Release Date : {data.Released}</p>
+                    <p>Genre : {data.Genre}</p>
+                    <p>Language : {data.Language}</p>
+                    <p>Actor : {data.Actors}</p>
             </div>
             </div>)}
 
@@ -28,17 +32,16 @@ const Public = () => {
   useEffect(()=>{
     onValue(ref(db,`${uid}/public/${id}`),(snapshot)=>setData(snapshot.val()))
   },[db, id, uid])
-  useEffect(()=>{console.log(data);},[data])
   if(data){
     delete data.id
   return (
-    <div className='w-[70%] p-4'>
+    <div className='w-[90%] md:w-[70%] p-4'>
       {/* {`Public - ${uid} - ${id} `} */}
-      <div className='w-full text-4xl text-center'>
-        <p>This is list</p>
+      <div className='w-full text-3xl md:text-4xl text-center'>
+        <p>This is a shared list</p>
       </div>
       {Object.entries(data).length>0 ? Object.entries(data).map((d,key)=>{
-                return(<div key={key} className="p-2 my-2 bg-green-300 rounded-2xl">
+                return(<div key={key} className="p-2 my-2 bg-green-200 rounded-2xl">
                         <List key={key} val={d[1]}/>
                       </div>)
               }):<p>No list exist</p>}
