@@ -41,7 +41,7 @@ const Public = () => {
         <p>This is a shared list</p>
       </div>
       {Object.entries(data).length>0 ? Object.entries(data).map((d,key)=>{
-                return(<div key={key} className="p-2 my-2 bg-green-200 rounded-2xl">
+                return(<div key={key} className="p-2 my-2 bg-indigo-200 rounded-2xl">
                         <List key={key} val={d[1]}/>
                       </div>)
               }):<p>No list exist</p>}

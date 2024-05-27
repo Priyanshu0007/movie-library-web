@@ -32,9 +32,9 @@ const Details = () => {
         <Navbar/>
         {data ?<div className='w-full flex items-center justify-center gap-4 flex-col md:flex-row'>
             <div className='w-[80%] md:w-[60%] flex flex-col gap-4 items-center'>
-                <p className='text-2xl px-4 py-2 rounded-2xl bg-green-300 text-wrap'>{data.Title}</p>
+                <p className='text-2xl px-4 py-2 rounded-2xl bg-indigo-300 text-wrap'>{data.Title}</p>
                 <img src={data.Poster} className='w-[400px] h-[500px] rounded-2xl'/>
-                <div className='w-full md:w-[60%] p-4 bg-green-200 rounded-2xl flex flex-col gap-2'>
+                <div className='w-full md:w-[60%] p-4 bg-indigo-200 rounded-2xl flex flex-col gap-2'>
                     <p className='text-3xl'>Basic Details</p>
                     <p>Release Date : {data.Released}</p>
                     <p>Genre : {data.Genre}</p>
@@ -43,15 +43,15 @@ const Details = () => {
                 </div>
             </div>
             <div className='w-[100%] md:w-[40%] flex flex-col gap-2'>
-                <div className='w-[80%] md:w-[100%] p-4 rounded-2xl mx-auto flex gap-4 flex-col !justify-start bg-green-200'>
+                <div className='w-[80%] md:w-[100%] p-4 rounded-2xl mx-auto flex gap-4 flex-col !justify-start bg-indigo-200'>
                     <p className='text-3xl'>Plot</p>
                     <p className='tracking-widest'>{data.Plot}</p>
                 </div>
-                <div className='w-[80%] md:w-[100%] p-4 rounded-2xl mx-auto flex gap-4 flex-col !justify-start bg-green-200'>
+                <div className='w-[80%] md:w-[100%] p-4 rounded-2xl mx-auto flex gap-4 flex-col !justify-start bg-indigo-200'>
                     <p className='  text-3xl'>Add to list</p>
                     <div className=' flex flex-col justify-center gap-3'>
                     {firebase.privateData ? Object.entries(firebase.privateData).map((data,key)=>{
-                        return(<button key={key} onClick={()=>{addToPrivate(Number(data[0]));toast.success('Added to private list'),{duration:3000}}} className='flex items-center justify-between px-4 py-2 bg-green-400 rounded-2xl'>
+                        return(<button key={key} onClick={()=>{addToPrivate(Number(data[0]));toast.success('Added to private list'),{duration:3000}}} className='flex items-center justify-between px-4 py-2 bg-indigo-400 rounded-2xl'>
                                     <p>Add To Private List - {key+1}</p>
                                     <BsFillLockFill/>
                                 </button>)
@@ -59,14 +59,14 @@ const Details = () => {
                     </div>
                     <div className=' flex flex-col justify-start gap-3'>
                     {firebase.publicData ? Object.entries(firebase.publicData).map((data,key)=>{
-                        return(<button key={key} onClick={()=>{addToPublic(Number(data[0]));toast.success('Added to public list'),{duration:3000}}} className='flex items-center justify-between px-4 py-2 bg-green-500 rounded-2xl'>
+                        return(<button key={key} onClick={()=>{addToPublic(Number(data[0]));toast.success('Added to public list'),{duration:3000}}} className='flex items-center justify-between px-4 py-2 bg-indigo-500 rounded-2xl'>
                                     <p>Add To Public List - {key+1}</p>
                                     <BsFillUnlockFill/>
                                 </button>)
                     }):<div>No public list</div>}
                     </div>
                 </div>
-                <div className='w-[80%] md:w-[100%] p-4 rounded-2xl mx-auto flex gap-4 flex-col !justify-start bg-green-200'>
+                <div className='w-[80%] md:w-[100%] p-4 rounded-2xl mx-auto flex gap-4 flex-col !justify-start bg-indigo-200'>
                     <p className='text-3xl'>Rating</p>
                     {data.Ratings.map((da,key)=>(
                         <div key={key}>
